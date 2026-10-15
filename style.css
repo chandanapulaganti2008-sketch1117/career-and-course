@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f7ff;
+    color: #222;
+}
+
+header {
+    background: #172554;
+    color: white;
+    padding: 22px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    color: #93c5fd;
+}
+
+.hero {
+    min-height: 400px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    padding: 60px 8%;
+    flex-wrap: wrap;
+}
+
+.hero-content {
+    max-width: 550px;
+}
+
+.tag {
+    color: #2563eb;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.hero-content h1 span {
+    color: #2563eb;
+}
+
+.hero-content p {
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.main-button {
+    display: inline-block;
+    background: #2563eb;
+    color: white;
+    padding: 14px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.main-button:hover {
+    background: #1d4ed8;
+}
+
+.hero-card {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px #00000015;
+    max-width: 320px;
+}
+
+.hero-card .cap {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.features {
+    padding: 50px 8%;
+    text-align: center;
+}
+
+.section-text {
+    margin: 15px 0 30px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 280px;
+    box-shadow: 0 5px 15px #00000010;
+}
+
+.card .emoji {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 12px;
+}
+
+.card p {
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    header {
+        padding: 20px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 6px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .hero {
+        padding: 40px 20px;
+    }
+
+    .features {
+        padding: 40px 20px;
+    }
+}

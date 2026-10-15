@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career & Course Advisor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">Career<span>Guide</span></div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#careers">Explore Careers</a>
+      <a href="#advisor">Ask Advisor</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <p class="tag">YOUR FUTURE STARTS HERE</p>
+        <h1>Confused about your <span>career?</span></h1>
+        <p class="intro">
+          Discover the right courses and career paths based on
+          your interests, skills and goals.
+        </p>
+        <a class="main-button" href="#advisor">Find My Career →</a>
+      </div>
+      <div class="hero-card">
+        <div class="cap">🎓</div>
+        <h3>Your future, your choice.</h3>
+        <p>Explore possibilities. Build your future.</p>
+      </div>
+    </section>
+
+    <section class="features" id="careers">
+      <h2>How can we help you?</h2>
+      <p class="section-text">Take the first step towards your dream career.</p>
+      <div class="cards">
+        <div class="card">
+          <div class="emoji">🧭</div>
+          <h3>Career Guidance</h3>
+          <p>Explore career options that match your interests.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">📚</div>
+          <h3>Course Advisor</h3>
+          <p>Discover courses and skills for your future goals.</p>
+        </div>
+        <div class="card">
+          <div class="emoji">💬</div>
+          <h3>Chat with Advisor</h3>
+          <p>Ask questions and get helpful career suggestions.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="advisor" id="advisor">
+      <h2>Ask Your Career Advisor 🤖</h2>
+      <p>Tell us what you are interested in!</p>
+      <div class="chat-box" id="chatBox">
+        <div class="message bot">
+          Hi! 👋 I'm your Career Advisor. What would you
+          like to study or explore?
+        </div>
+      </div>
+      <form id="chatForm">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="e.g. I like computers..."
+          required
+        >
+        <button type="submit">Send ➤</button>
+      </form>
+      <p class="note">Demo chatbot: suggestions are based on simple keywords.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 CareerGuide | Helping students choose their future.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+    <h2>Ask Your Career Advisor 🤖</h2>
+
+    <p>Tell us what you are interested in!</p>
+
+    <input
+
+        type="text"
+
+        id="interest"
+
+        placeholder="Enter your interests"
+
+    >
+
+    <button onclick="findCareer()">Find Career</button>
+
+    <p id="result"></p>
+
+

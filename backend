@@ -1,0 +1,181 @@
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Home route
+app.get("/", (req, res) => {
+    res.send("Career and Course Advisor Backend is running!");
+});
+
+// Career recommendations
+const careers = {
+    science: [
+        {
+            career: "Software Developer",
+            courses: ["B.Tech Computer Science", "BCA", "B.Sc Computer Science"],
+            skills: ["Programming", "Problem Solving", "JavaScript"],
+            description: "Develop websites, applications, and software."
+        },
+        {
+            career: "Data Analyst",
+            courses: ["B.Sc Statistics", "BCA", "B.Tech Computer Science"],
+            skills: ["Python", "SQL", "Excel", "Data Visualization"],
+            description: "Analyze data to help organizations make decisions."
+        },
+        {
+            career: "AI Engineer",
+            courses: ["B.Tech AI and ML", "B.Tech Computer Science", "B.Sc Computer Science"],
+            skills: ["Python", "Mathematics", "Machine Learning"],
+            description: "Build intelligent systems and AI applications."
+        }
+    ],
+
+    commerce: [
+        {
+            career: "Accountant",
+            courses: ["B.Com", "B.Com Accounting and Finance"],
+            skills: ["Accounting", "Excel", "Financial Analysis"],
+            description: "Manage financial records and prepare accounts."
+        },
+        {
+            career: "Business Analyst",
+            courses: ["BBA", "B.Com", "MBA (after graduation)"],
+            skills: ["Communication", "Excel", "Data Analysis"],
+            description: "Help businesses improve their performance."
+        }
+    ],
+
+    arts: [
+        {
+            career: "Graphic Designer",
+            courses: ["B.Des", "BFA", "Graphic Design Certificate"],
+            skills: ["Creativity", "Typography", "Design Software"],
+            description: "Create visual content for websites, brands, and media."
+        },
+        {
+            career: "Content Writer",
+            courses: ["BA English", "Journalism", "Content Writing Courses"],
+            skills: ["Writing", "Research", "Communication"],
+            description: "Create articles, blogs, and other written content."
+        }
+    ]
+};
+
+// Get all available careers
+app.get("/api/careers", (req, res) => {
+    const allCareers = Object.values(careers).flat();
+    res.json({
+        success: true,
+        total: allCareers.length,
+        careers: allCareers
+    });
+});
+
+// Get careers by stream
+app.get("/api/careers/:stream", (req, res) => {
+    const stream = req.params.stream.toLowerCase();
+
+    if (!careers[stream]) {
+        return res.status(404).json({
+            success: false,
+            message: "Stream not found. Choose science, commerce, or arts."
+        });
+    }
+
+    res.json({
+        success: true,
+        stream: stream,
+        careers: careers[stream]
+    });
+});
+
+// Career and course advisor chatbot
+app.post("/api/chat", (req, res) => {
+    const { message, stream, interests } = req.body;
+
+    if (!message || typeof message !== "string") {
+        return res.status(400).json({
+            success: false,
+            message: "Please enter a valid message."
+        });
+    }
+
+    const userMessage = message.toLowerCase();
+    const selectedStream = (stream || "").toLowerCase();
+    const userInterests = Array.isArray(interests)
+        ? interests.map(item => String(item).toLowerCase())
+        : [];
+
+    let recommendations = Object.values(careers).flat();
+
+    // Filter by educational stream when provided
+    if (careers[selectedStream]) {
+        recommendations = careers[selectedStream];
+    }
+
+    // Filter by interests when provided
+    if (userInterests.length > 0) {
+        const matchedCareers = recommendations.filter(item =>
+            item.skills.some(skill =>
+                userInterests.some(interest =>
+                    skill.toLowerCase().includes(interest) ||
+                    interest.includes(skill.toLowerCase())
+                )
+            )
+        );
+
+        if (matchedCareers.length > 0) {
+            recommendations = matchedCareers;
+        }
+    }
+
+    let reply;
+
+    if (
+        userMessage.includes("hello") ||
+        userMessage.includes("hi") ||
+        userMessage.includes("hey")
+    ) {
+        reply =
+            "Hello! Welcome to the Career and Course Advisor. " +
+            "Tell me your educational stream and interests, and I will suggest suitable career options.";
+    } else if (
+        userMessage.includes("course") ||
+        userMessage.includes("career") ||
+        userMessage.includes("job") ||
+        userMessage.includes("future") ||
+        userMessage.includes("recommend")
+    ) {
+        reply = "Here are some career options to explore based on your information.";
+    } else {
+        reply =
+            "I can help you explore careers and courses. " +
+            "Tell me your stream (science, commerce, or arts) and the subjects or skills you enjoy.";
+    }
+
+    res.json({
+        success: true,
+        reply: reply,
+        recommendations: recommendations
+    });
+});
+
+// Handle unknown routes
+app.use((req, res) => {
+    res.status(404).json({
+        success: false,
+        message: "API route not found."
+    });
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Career Advisor server running at http://localhost:${PORT}`);
+});
